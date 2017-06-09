@@ -46,18 +46,14 @@ public:
 		return os;
 	}
 
-	// update all entities, troublesome part. Required a lot of refactoring, because only because
-	// we know the entity ID, we did not have access to the necessary component arrays.
-	// So I added this vector storing all the component types this system needs.
+	/* Only because we know the entity IDs relevant to this system we do not have 
+	   access to the required components. We should save a reference to these. */
 	//void update()
 	//{
 	//	for (auto& entity : entities)
 	//	{
-	//		for (Component_Type* component : components)
-	//		{
-	//			component
-	//		}
-
+	//		
+	//		// update components
 	//	}
 	//}
 
