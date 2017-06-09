@@ -31,12 +31,12 @@ int main(int argc, char** argv) {
 	v.v = 9.81;
 
 	manager.add_position2D(player, pos2d);
-
+	// the movement-system should not print anything because the velocity component is missing
 	cout << movement_system << endl;
-
+	// now the movement-system should get the player id.
 	manager.add_velocity(player, v);
 
-	cout << movement_system << endl;
+	cout << movement_system << endl; // prints 0 as the player has the required components
 	getchar();
 
 	return 0;
