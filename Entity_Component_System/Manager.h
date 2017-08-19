@@ -6,7 +6,6 @@
 #include "Subject.h"
 #include "Observer.h"
 #include "Components.h"
-#include "World.h"
 
 
 
@@ -15,7 +14,7 @@
 class Manager : public Subject
 {
 public:
-	Manager(World& w) : systems({}), world(w) {};
+	Manager() : systems({}) {};
 
 	// add a system
 	void register_observer(Observer* o)
@@ -36,7 +35,7 @@ public:
 		unsigned int entity;
 		for (entity = 0; entity < MAX_ENTITIES; ++entity)
 		{
-			if (world.mask[entity] == COMPONENT_NONE)
+			if (mask[entity] == COMPONENT_NONE)
 			{
 				return entity;
 			}
@@ -45,11 +44,11 @@ public:
 		return MAX_ENTITIES;
 	}
 
-	void add_velocity(unsigned int entity, velocity& v)
+	void add_velocity(unsigned int entity, velocity& vel)
 	{
 		// add velocity component
-		world.mask[entity] |= COMPONENT_VELOCITY;
-		world.v[entity] = v;
+		mask[entity] |= COMPONENT_VELOCITY;
+		v[entity] = vel;
 
 		// add the entity to the relevant system
 		notify_systems(entity);
@@ -58,8 +57,8 @@ public:
 	void add_position2D(unsigned int entity, position2D& pos2D)
 	{
 		// add position2D component
-		world.mask[entity] |= COMPONENT_POSITION_2D;
-		world.pos2d[entity] = pos2D;
+		mask[entity] |= COMPONENT_POSITION_2D;
+		pos2d[entity] = pos2D;
 
 		// add the entity to the relevant system
 		notify_systems(entity);
@@ -82,7 +81,12 @@ public:
 
 private:
 
-	World& world;
+	// index = entity, entry = component-mask
+	int mask[MAX_ENTITIES] = { COMPONENT_NONE };
+
+	// some components
+	velocity v[MAX_ENTITIES] = {};
+	position2D pos2d[MAX_ENTITIES] = {};
 
 	std::vector<Observer*> systems;
 
@@ -94,7 +98,7 @@ private:
 			// get systems component mask
 			int component_mask = system->get_component_mask();
 			// check if applicable
-			if (world.mask[entity] & component_mask == component_mask)
+			if (mask[entity] & component_mask == component_mask)
 			{
 				system->add_entity(entity);
 			}

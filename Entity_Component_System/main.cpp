@@ -2,7 +2,6 @@
 #include <string>
 
 #include "Manager.h"
-#include "World.h"
 #include "System.h"
 #include "Components.h"
 
@@ -24,13 +23,10 @@ using namespace std;
 
 int main(int argc, char** argv) {
 
-
-
 	// test the EC-System
-	World world;
-	Manager manager(world);
+	Manager manager;
 	int movement_mask = COMPONENT_POSITION_2D | COMPONENT_VELOCITY;
-	System movement_system(movement_mask, world); // maybe keep ref to subject to use its world reference
+	System movement_system(movement_mask); // maybe keep ref to subject to use its world reference
 	manager.register_observer(&movement_system);
 	unsigned int player = manager.create_entity();
 

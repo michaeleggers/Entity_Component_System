@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Components.h"
-#include "World.h"
 
 // just for tagging concrete components, well, more or less...
 class Component_Type
