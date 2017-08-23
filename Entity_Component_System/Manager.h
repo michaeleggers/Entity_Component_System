@@ -79,14 +79,15 @@ public:
 	//	notify_systems(entity);
 	//}
 
+	// some components
+	velocity v[MAX_ENTITIES] = {};
+	position2D pos2d[MAX_ENTITIES] = {};
+
 private:
 
 	// index = entity, entry = component-mask
 	int mask[MAX_ENTITIES] = { COMPONENT_NONE };
 
-	// some components
-	velocity v[MAX_ENTITIES] = {};
-	position2D pos2d[MAX_ENTITIES] = {};
 
 	std::vector<Observer*> systems;
 

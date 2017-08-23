@@ -5,14 +5,13 @@
 
 #include "Observer.h"
 #include "Subject.h"
-#include "World.h"
-#include "Component.h"
+#include "Components.h"
 
 class System : public Observer
 {
 
 public:
-	System(int component_mask) : component_mask_(component_mask), entities_({})
+	System(int component_mask, Manager& manager) : component_mask_(component_mask), entities_({}), manager_(manager)
 	{
 		//// store references to all relevant component lists
 		//if (COMPONENT_POSITION_2D & component_mask == COMPONENT_POSITION_2D)
@@ -40,7 +39,8 @@ public:
 		os << "system has the following entities: " << std::endl;
 		for (unsigned int entity : rhs.entities_)
 		{
-			os << entity << std::endl;
+			os << "Entity ID: " << entity << std::endl;
+			os << "position: " << rhs.manager_.pos2d[entity].x << ", " << rhs.manager_.pos2d[entity].y << std::endl;
 		}
 		
 		return os;
@@ -48,19 +48,22 @@ public:
 
 	/* Only because we know the entity IDs relevant to this system we do not have 
 	   access to the required components. We should save a reference to these. */
-	//void update()
-	//{
-	//	for (auto& entity : entities)
-	//	{
-	//		
-	//		// update components
-	//	}
-	//}
+	void update()
+	{
+		for (auto& entity : entities_)
+		{
+			
+			// update components
+			manager_.pos2d[entity].x += manager_.v[entity].v;
+			manager_.pos2d[entity].y += manager_.v[entity].v;
+		}
+	}
 
 private:
 
 	int component_mask_;
 	std::vector<unsigned int> entities_;
+	Manager& manager_;
 	// reference list to registered component-lists of world
 	//std::vector<Component_Type*> components;
 };

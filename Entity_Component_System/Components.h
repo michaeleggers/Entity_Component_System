@@ -12,13 +12,13 @@ enum Component_Mask
 	COMPONENT_POSITION_2D = 1 << 1
 };
 
-typedef struct velocity
+struct velocity
 {
 	velocity() : v(0.0) {};
 	double v;
 };
 
-typedef struct position2D
+struct position2D
 {
 	position2D() {};
 	double x;

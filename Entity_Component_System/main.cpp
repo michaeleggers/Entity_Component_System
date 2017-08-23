@@ -26,7 +26,7 @@ int main(int argc, char** argv) {
 	// test the EC-System
 	Manager manager;
 	int movement_mask = COMPONENT_POSITION_2D | COMPONENT_VELOCITY;
-	System movement_system(movement_mask); // maybe keep ref to subject to use its world reference
+	System movement_system(movement_mask, manager); // maybe keep ref to subject to use its world reference
 	manager.register_observer(&movement_system);
 	unsigned int player = manager.create_entity();
 
@@ -46,6 +46,8 @@ int main(int argc, char** argv) {
 	manager.add_velocity(player, v);
 
 	cout << movement_system << endl; // prints 0 as the player has the required components
+	movement_system.update();
+	cout << movement_system << endl;
 	getchar();
 
 	return 0;
