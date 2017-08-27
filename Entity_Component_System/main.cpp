@@ -6,11 +6,6 @@
 #include "Components.h"
 
 /*
-	TODO: whenever a component gets added to an entity, all the systems have to check if it
-	is relevant for them through notify_systems() in the Manager.-> The Systems probably
-	should only store references to the component lists they operate on. Entities are
-	rather uninteresting for them.
-
 	Adding new Components to an Entity work through the add_XXX() functions in the Manager.
 	Rather than adding Components through the Manager with a lot of different functions,
 	maybe make Components templates and add them to concrete Entities, which at the
