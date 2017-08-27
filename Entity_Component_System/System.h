@@ -46,8 +46,6 @@ public:
 		return os;
 	}
 
-	/* Only because we know the entity IDs relevant to this system we do not have 
-	   access to the required components. We should save a reference to these. */
 	void update()
 	{
 		for (auto& entity : entities_)
